@@ -24,15 +24,15 @@ jobs:
       uses: actions/setup-python@v4.3.0
     - name: Install Binwalk
       run: |
-        git clone https://github.com/ReFirmLabs/binwalk.git
+        sudo git clone https://github.com/ReFirmLabs/binwalk.git
         cd binwalk
         sudo python3 setup.py install
     - name: Binwalk the file
       run: |
         cd /home/
-        curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
-        binwalk bintowalk.bin --signature -A -Y --dd='.*'
-        rm bintowalk.bin
+        sudo curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
+        sudo binwalk bintowalk.bin --signature -A -Y --dd='.*' --run-as="root"
+        sudo rm bintowalk.bin
     - name: Archive results
       uses: actions/upload-artifact@v3
       with:
