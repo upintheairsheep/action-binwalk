@@ -31,7 +31,7 @@ jobs:
       run: |
         cd /home/
         sudo curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
-        sudo binwalk bintowalk.bin --signature -A -Y --dd='.*' --run-as="root"
+        binwalk bintowalk.bin --signature --dd='.*' --run-as="root"
         sudo rm bintowalk.bin
     - name: Archive results
       uses: actions/upload-artifact@v3
