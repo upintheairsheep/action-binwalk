@@ -35,8 +35,8 @@ jobs:
        curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
        binwalk bintowalk.bin --signature -A -Y --dd='.*'
        rm bintowalk.bin
-      - name: Archive results
-        uses: actions/upload-artifact@v3
-        with:
-          name: binwalks
-          path: | home/
+    - name: Archive results
+      uses: actions/upload-artifact@v3
+      with:
+        name: binwalks
+        path: | /home/
