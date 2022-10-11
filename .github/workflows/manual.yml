@@ -28,7 +28,7 @@ jobs:
         cd binwalk
         sudo python3 setup.py install
     - name: Binwalk the file
-       run: |
+      run: |
         cd /home/
         curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
         binwalk bintowalk.bin --signature -A -Y --dd='.*'
