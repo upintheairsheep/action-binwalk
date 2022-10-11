@@ -24,9 +24,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: Start
-      run: echo "Binwalk action for URL: ${{ github.event.inputs.url }}"
     - name: Setup Python
       uses: actions/setup-python@v4.3.0
     - name: Install Binwalk
