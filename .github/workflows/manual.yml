@@ -35,6 +35,6 @@ jobs:
         rm bintowalk.bin
     - name: Archive results
        uses: actions/upload-artifact@v3
-        with:
+       with:
           name: binwalks
           path: | /home/
