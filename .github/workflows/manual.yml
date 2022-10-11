@@ -19,24 +19,22 @@ on:
 jobs:
   binwalk:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-steps:
-  - name: Setup Python
-    uses: actions/setup-python@v4.3.0
-  - name: Install Binwalk
-    run: |
-     git clone https://github.com/ReFirmLabs/binwalk.git
-     cd binwalk
-     sudo python3 setup.py install
-   - name: Binwalk the file
-     run: |
-       cd /home/
-       curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
-       binwalk bintowalk.bin --signature -A -Y --dd='.*'
-       rm bintowalk.bin
-  - name: Archive results
-     uses: actions/upload-artifact@v3
-      with:
-        name: binwalks
-        path: | /home/
+    steps:
+    - name: Setup Python
+       uses: actions/setup-python@v4.3.0
+    - name: Install Binwalk
+      run: |
+        git clone https://github.com/ReFirmLabs/binwalk.git
+        cd binwalk
+        sudo python3 setup.py install
+    - name: Binwalk the file
+       run: |
+        cd /home/
+        curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
+        binwalk bintowalk.bin --signature -A -Y --dd='.*'
+        rm bintowalk.bin
+    - name: Archive results
+       uses: actions/upload-artifact@v3
+        with:
+          name: binwalks
+          path: | /home/
