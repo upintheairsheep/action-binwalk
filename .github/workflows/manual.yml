@@ -34,7 +34,7 @@ jobs:
         binwalk bintowalk.bin --signature -A -Y --dd='.*'
         rm bintowalk.bin
     - name: Archive results
-       uses: actions/upload-artifact@v3
-       with:
+      uses: actions/upload-artifact@v3
+      with:
           name: binwalks
           path: | /home/
