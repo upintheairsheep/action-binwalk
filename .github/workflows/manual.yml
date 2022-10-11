@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      url:
+      pathtofile:
         # Friendly description to be shown in the UI instead of 'name'
         description: 'URL to binwalk'
         # Default value if no value is explicitly provided
@@ -32,7 +32,7 @@ jobs:
      - name: Binwalk the file
       run: |
        cd /home/
-       curl ${{ github.event.inputs.url }} -o bintowalk.bin
+       curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
        binwalk bintowalk.bin --signature -A -Y --dd='.*'
        rm bintowalk.bin
       - name: Archive results
