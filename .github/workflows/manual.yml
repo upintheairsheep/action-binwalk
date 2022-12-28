@@ -1,40 +1,17 @@
-# This is a basic workflow that is manually triggered
+name: Binwalk Action
 
-name: Binwalk
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
-on:
-  workflow_dispatch:
-    # Inputs the workflow accepts.
-    inputs:
-      pathtofile:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'URL to binwalk'
-        # Default value if no value is explicitly provided
-        default: ''
-        # Input has to be provided for the workflow to run
-        required: true
+on: [push]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   binwalk:
     runs-on: ubuntu-latest
     steps:
-    - name: Setup Python
-      uses: actions/setup-python@v4.3.0
-    - name: Install Binwalk
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install binwalk
       run: |
-        sudo git clone https://github.com/ReFirmLabs/binwalk.git
-        cd binwalk
-        sudo python3 setup.py install
-    - name: Binwalk the file
-      run: |
-        cd /home/
-        sudo curl ${{ github.event.inputs.pathtofile }} -o bintowalk.bin
-        sudo binwalk bintowalk.bin --signature --dd='.*' --run-as="root"
-        sudo rm bintowalk.bin
-    - name: Archive results
-      uses: actions/upload-artifact@v3
-      with:
-          name: binwalks
-          path: /home/
+        apt-get update && apt-get install binwalk
+    - name: Download file from URL
+      run: curl -L -o file.bin "${{ inputs.url }}"
+    - name: Scan and extract embedded files with binwalk
+      run: binwalk -e file.bin
